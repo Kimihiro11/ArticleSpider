@@ -4,6 +4,7 @@ import re
 import datetime
 
 from scrapy.http import Request
+from scrapy.loader import ItemLoader
 from urllib import parse
 
 from ArticleSpider2.items import JobBoleArticleItem
@@ -65,5 +66,9 @@ class JobboleSpider(scrapy.Spider):
         article_item["comment_nums"] =comment_nums
         # article_item["content"] = content
         article_item["tags"] = tags
+
+        #通过ItemLoader加载item
+        item_loader = ItemLoader(item=JobBoleArticleItem, response=response)
+        item_loader.add_xpath()
 
         yield article_item
